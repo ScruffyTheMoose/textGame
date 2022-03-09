@@ -25,9 +25,19 @@ timeLeft = 10;
  */
 function countdown() {
 
+    hold = String(timeLeft);
+
+    if (timeLeft == 0) {
+        death("You ran outta time, sucker."); // TO BE CHANGED
+        return;
+    } else if (timeLeft < 0) {
+        document.getElementById("timer").innerHTML = hold;
+        return; // breaking the loop if timeLeft set to -1
+    }
+
     timeLeft--;
     document.getElementById("timer").innerHTML = String(timeLeft);
-    if (timeLeft > 0) {
+    if (timeLeft >= 0) {
         setTimeout(countdown, 1000);
     }
 
@@ -143,6 +153,8 @@ function opt_BAB() {
 
 
 function opt_BABA() {
+
+    timeLeft = -1;
 
     win("Success! You manage to bring the spinning to a stop and your crew is able to safely board the ship.");
 
