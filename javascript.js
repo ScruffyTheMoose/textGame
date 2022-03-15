@@ -10,15 +10,12 @@ dead = false;
 // rgb vals for clock
 red = 0;
 green = 150;
-blue = 0;
 
 
 /**
  * 10-second countdown
  */
 function countdown() {
-
-    hold = String(timeLeft);
 
     if (timeLeft == 0 && !complete && !dead) {
         death("You ran outta time, sucker."); // TO BE CHANGED
@@ -28,10 +25,9 @@ function countdown() {
     timeLeft--;
     document.getElementById("timer").innerHTML = String(timeLeft);
     if (timeLeft >= 0 && !complete && !dead) {
-        red += 15;
-        green -= 15;
-        // blue += 5;
-        document.getElementById("clock").style.backgroundColor = `rgb(${red}, ${green}, ${blue})`
+        red += 20;
+        green -= 25;
+        document.getElementById("clock").style.backgroundColor = `rgb(${red}, ${green}, 0)`
         setTimeout(countdown, 1000);
     } else if (complete) {
         document.getElementById("timer").innerHTML = "--";
@@ -95,7 +91,7 @@ function update3(situation, a_func, a_desc, b_func, b_desc, c_func, c_desc) {
     document.getElementById("c").onclick = c_func;
     document.getElementById("c").innerHTML = c_desc;
 
-} // end update
+} // end update3
 
 
 /**
@@ -119,7 +115,7 @@ function update2(situation, a_func, a_desc, b_func, b_desc) {
     document.getElementById("b").onclick = b_func;
     document.getElementById("b").innerHTML = b_desc;
 
-} // end update
+} // end update2
 
 
 /**
@@ -127,8 +123,7 @@ function update2(situation, a_func, a_desc, b_func, b_desc) {
  */
 function start() {
 
-    situation = "You are the pilot of a small cargo craft leaving a desolate planet in the middle of unoccupied space. \
-    As you wait your turn to dock with your parent ship called 'Heighliner', another craft suddenly impacts the nose of the Heighliner throwing it into an uncontrolled spin.";
+    situation = "The Heighliner's roll is out of control, what is your first move? ";
     a_desc = "Hold back and observe to see how the situation develops.";
     b_desc = "Approach the ship.";
     c_desc = "Run! Get some distance between you and the Heighliner."
