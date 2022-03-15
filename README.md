@@ -1,3 +1,3 @@
 # textGame
 
-https://github.com/ScruffyTheMoose/textGame
+https://scruffythemoose.github.io/textGame/
