@@ -40,6 +40,15 @@ function countdown() {
 } // end timer
 
 
+function hide_buttons() {
+
+    document.getElementById("cont_a").style.display = "none";
+    document.getElementById("cont_b").style.display = "none";
+    document.getElementById("cont_c").style.display = "none";
+
+}
+
+
 /**
  * Function to be called any time the player gets killed
  * @param {death note} note 
@@ -48,9 +57,11 @@ function death(note) {
 
     dead = true;
     document.getElementById("timer").innerHTML = "--";
-    document.getElementById("div_master").innerHTML = note;
+    document.getElementById("description").innerHTML = note;
+    hide_buttons();
 
 } // end death
+
 
 /**
  * Function to be called if player successfully completes the game
@@ -61,8 +72,10 @@ function win(note) {
     complete = true;
     document.getElementById("timer").innerHTML = "--";
     document.getElementById("div_master").innerHTML = note;
+    hide_buttons();
 
 } // end win
+
 
 /**
  * Function for more easily updating the html components
@@ -86,10 +99,12 @@ function update3(situation, a_func, a_desc, b_func, b_desc, c_func, c_desc) {
     // Choice B
     document.getElementById("b").onclick = b_func;
     document.getElementById("b").innerHTML = b_desc;
+    document.getElementById("cont_b").style.display = "block";
 
     // Choice C
     document.getElementById("c").onclick = c_func;
     document.getElementById("c").innerHTML = c_desc;
+    document.getElementById("cont_c").style.display = "block";
 
 } // end update3
 
@@ -114,6 +129,9 @@ function update2(situation, a_func, a_desc, b_func, b_desc) {
     // Choice B
     document.getElementById("b").onclick = b_func;
     document.getElementById("b").innerHTML = b_desc;
+
+    // hide C
+    document.getElementById("cont_c").style.display = "none";
 
 } // end update2
 

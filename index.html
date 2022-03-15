@@ -23,26 +23,32 @@
 
     <div class="center" id="div_master">
 
-        <p id="description">
-            You are the pilot of a small cargo craft leaving a desolate planet in the middle of unoccupied space.
-            <br>As you wait your turn to dock with your parent ship called <em>Heighliner</em>, an out of control craft
-            impacts the nose of the Heighliner throwing it into an uncontrolled roll.
-        </p>
+        <div id="cont_desc">
+            <p id="description">
+                You are the pilot of a small cargo craft leaving a desolate planet in the middle of unoccupied space.
+                <br>As you wait your turn to dock with your parent ship called <em>Heighliner</em>, an out of control
+                craft
+                impacts the nose of the Heighliner throwing it into an uncontrolled roll.
+            </p>
+        </div>
 
         <br>
-        <br>
 
-        <p class="choice" id="a" onclick="start();">The seconds tick away.</p>
-
-        <br>
-        <br>
-
-        <p class="choice" id="b"></p>
+        <div id="cont_a">
+            <button id="a" onclick="start();">The seconds tick away.</button>
+        </div>
 
         <br>
+
+        <div style="display: none;" id="cont_b">
+            <button id="b"></button>
+        </div>
+
         <br>
 
-        <p class="choice" id="c"></p>
+        <div style="display: none;" id="cont_c">
+            <button id="c"></button>
+        </div>
 
     </div>
 

@@ -4,13 +4,34 @@ body {
 
 .center {
     text-align: center;
+    align-items: center;
+    margin-left: 10%;
+    margin-right: 10%;
     color: white;
     font-family: monospace;
+}
+
+#cont_desc {
     font-size: 25px;
 }
 
-.choice {
-    color: rgb(80, 116, 233);
+
+button {
+    background-color: rgb(50, 50, 50);
+    color: white;
+    font-size: 20px;
+    width: 50%;
+    height: 50px;
+    border: 2px solid grey;
+    border-radius: 8px;
+    transition-duration: 0.4s;
+}
+
+
+button:hover {
+    background-color: grey;
+    color: black;
+    border: 2px solid black;
 }
 
 
