@@ -5,8 +5,15 @@ body {
 .center {
     text-align: center;
     color: white;
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
 }
 
+.choice {
+    color: blueviolet;
+}
+
+
+/* Styling for the timer below */
 #clock {
     width: 200px;
     height: 200px;
@@ -22,5 +29,6 @@ span {
     padding-top: 40px;
     text-align: center;
     font-size: 100px;
+    font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
     color: white;
 }

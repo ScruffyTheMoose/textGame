@@ -1,30 +1,15 @@
-/**
- * Example function to change the value of some element
- */
-function changeOutline() {
-
-    value = document.getElementById("ENTERIDHERE").innerHTML;
-
-    if (value == 0) {
-        document.getElementById("ELEMENTIDHERE").innerHTML = "do a thing"
-    }
-
-    console.log("changed " + value)
-
-}
-
-
 // var to track current time in session
 timeLeft = 10;
 
 // var to track completion
 complete = false;
 
+// var to track death
+dead = false;
+
 
 /**
  * 10-second countdown
- * To initiate, assign as an onClick effect on the "Begin" button.
- * ex: onClick='countdown("ElementIDHere")'
  */
 function countdown() {
 
@@ -37,33 +22,65 @@ function countdown() {
 
     timeLeft--;
     document.getElementById("timer").innerHTML = String(timeLeft);
-    if (timeLeft >= 0 && !complete) {
+    if (timeLeft >= 0 && !complete && !dead) {
         setTimeout(countdown, 1000);
-    } else {
-        document.getElementById("timer").innerHTML = "";
+    } else if (complete) {
+        document.getElementById("timer").innerHTML = "--";
+        return;
+    } else if (dead) {
+        document.getElementById("timer").innerHTML = "--";
         return;
     }
-
-    // can add param here to end all other processes if timeleft <= 0
-    // easiest option is to just load to a new page
 
 } // end timer
 
 
 /**
- * Function to be called upon death.
- * TBD - make this a little more interesting...
+ * Function to be called any time the player gets killed
+ * @param {death note} note 
  */
 function death(note) {
+
+    dead = true;
+    document.getElementById("timer").innerHTML = "--";
     document.getElementById("div_master").innerHTML = note;
-}
 
+} // end death
 
+/**
+ * Function to be called if player successfully completes the game
+ * @param {winning note} note 
+ */
 function win(note) {
+
     complete = true;
+    document.getElementById("timer").innerHTML = "--";
     document.getElementById("div_master").innerHTML = note;
-    document.getElementById("timer").innerHTML = "";
-}
+
+} // end win
+
+/**
+ * Function for more easily updating the html components
+ * @param {text description of the current situation} situation 
+ * @param {function for choice alpha} a_func 
+ * @param {text description of choice alpha} a_desc 
+ * @param {function for choice beta} b_func 
+ * @param {text description of choice beta} b_desc 
+ */
+function update(situation, a_func, a_desc, b_func, b_desc) {
+
+    // situation
+    document.getElementById("description").innerHTML = situation;
+
+    // Choice A
+    document.getElementById("alpha").onclick = a_func;
+    document.getElementById("alpha").innerHTML = a_desc;
+
+    // Choice B
+    document.getElementById("beta").onclick = b_func;
+    document.getElementById("beta").innerHTML = b_desc;
+
+} // end update
 
 
 /**
@@ -71,88 +88,72 @@ function win(note) {
  */
 function start() {
 
+    situation = "You are the pilot of a small cargo craft leaving a desolate planet in the middle of unoccupied space. \
+    As you wait your turn to dock with your parent ship called 'Heighliner', another craft suddenly impacts the nose of the Heighliner throwing it into an uncontrolled spin.";
+    a_desc = "Hold back to preserve your safety.";
+    b_desc = "Approach the ship.";
+
+    a_death = "You watch as the Heighliner continues its uncontrolled spin, breaking apart into thousands of pieces. You and your crew become stranded, eventually dying when you run out of resources.";
+
     countdown();
 
-    // Adding the initial description of the scenario
-    document.getElementById("description").innerHTML = "You wait your turn to dock with the ship when suddenly another craft impacts the body of the ship and causes an explosion, throwing the ship into an uncontrolled spin.";
-
-    // Choice A
-    document.getElementById("alpha").onclick = opt_A;
-    document.getElementById("alpha").innerHTML = "Hold back to preserve your safety.";
-
-    // Choice B
-    document.getElementById("beta").onclick = opt_B;
-    document.getElementById("beta").innerHTML = "Approach the ship.";
+    update(situation, opt_A, a_desc, opt_B, b_desc);
 
 }
 
 
 function opt_A() {
 
-    death("You watch as the ship continues its oncontrolled spin, breaking apart into thousands of pieces. \
-    You and your crew become stranded as a result, eventually dying when you run out of resources.");
+    death("You watch as the Heighliner continues its uncontrolled spin, breaking apart into thousands of pieces. \
+    You and your crew become stranded, eventually dying when you run out of resources.");
 
 }
 
+// add option to spin the wrong direction
 function opt_B() {
 
-    // Adding the initial description of the scenario
-    document.getElementById("description").innerHTML = "You approach the ship carefully, hovering near the docking port that spins rapidly infront of you.";
+    situation = "You approach the Heighliner carefully, hovering near the docking port that rotate clockwise infront of you.";
+    a_desc = "Start spinning your craft clockwise to match the rotation of the Heighliner's docking port.";
+    b_desc = "Continue observing. Maybe the ship's safety system will slow the spin.";
 
-    // Choice A
-    document.getElementById("alpha").onclick = opt_BA;
-    document.getElementById("alpha").innerHTML = "Start spinning your craft to match the rotation of the docking port.";
-
-    // Choice B
-    document.getElementById("beta").onclick = opt_BB;
-    document.getElementById("beta").innerHTML = "Continue observing. Maybe the ship's safety system will slow the spin.";
+    update(situation, opt_BA, a_desc, opt_BB, b_desc);
 
 }
 
 function opt_BA() {
 
-    // Adding the initial description of the scenario
+    situation = "You push right on your stick and begin rolling your craft clockwise until you have perfectly matched the spin of the Heighliner.";
+    a_desc = "Pass control to the guidance computer to guide the ship in.";
+    b_desc = "Take the controls and attempt to manually dock.";
 
-    document.getElementById("description").innerHTML = "You begin rapidly spinning in your craft until you have perfectly matched the spin of the ship.";
-
-    // Choice A
-    document.getElementById("alpha").onclick = opt_BAA;
-    document.getElementById("alpha").innerHTML = "Pass control to the guidance computer to guide the ship in.";
-
-    // Choice B
-    document.getElementById("beta").onclick = opt_BAB;
-    document.getElementById("beta").innerHTML = "Take the controls and attempt to manually dock. Who would trust a computer to handle this?";
+    update(situation, opt_BAA, a_desc, opt_BAB, b_desc);
 
 }
 
 
 function opt_BB() {
 
-    death("As you sit and observe waiting for an automated system to get the spin under control, your craft is hit with debris killing your crew.");
+    death("As you sit and observe waiting for an automated system to get the Heighliner's roll under control, your craft is hit with debris killing you and your crew.");
 
 }
 
 
 function opt_BAA() {
 
-    death("You hand control of the craft over to the guidance computer to handle the docking. The computer, however, interprets the spin as an error. \
-    It slows the rotation rapidly and backs away from the spinning ship. You are forced to watch as your only hope of surival breaks apart. \
+    death("You hand control of the craft over to the guidance computer to handle the docking. The computer, however, interprets your roll as an error. \
+    It slows the rotation rapidly and backs away from the Heighliner. You are forced to watch as your only hope of surival tears itself apart. \
     You and your crew become stranded as a result, eventually dying when you run out of resources.");
 
 }
 
-
+// add option to roll wrong direction
 function opt_BAB() {
 
-    document.getElementById("description").innerHTML = "You don't trust the computer to handle this situation so you take the controls yourself. You carefully guide your craft in and successfully dock with the spinning ship, locking your craft in.";
+    situation = "You don't trust the computer to handle this situation so you take the controls yourself. You carefully guide your craft in and successfully dock with the rolling Heighliner, locking your craft in.";
+    a_desc = "Gradually turn on thrusters pointing counter-clockwise in an attempt to resolve the roll.";
+    b_desc = "Allow the roll to continue. Maybe trying to slow it down would cause catastrophe.";
 
-    // Choice A
-    document.getElementById("alpha").onclick = opt_BABA;
-    document.getElementById("alpha").innerHTML = "Turn on thrusters to carefully bring the spin to a halt.";
-
-    // Choice B
-    document.getElementById("beta").onclick = opt_BABB;
-    document.getElementById("beta").innerHTML = "Allow the spin to continue. Maybe trying to slow it down would cause catastrophe.";
+    update(situation, opt_BABA, a_desc, opt_BABB, b_desc);
 
 }
 
