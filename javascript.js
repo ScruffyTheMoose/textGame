@@ -71,7 +71,7 @@ function win(note) {
 
     complete = true;
     document.getElementById("timer").innerHTML = "--";
-    document.getElementById("div_master").innerHTML = note;
+    document.getElementById("description").innerHTML = note;
     hide_buttons();
 
 } // end win
