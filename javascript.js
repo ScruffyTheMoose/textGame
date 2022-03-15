@@ -7,6 +7,11 @@ complete = false;
 // var to track death
 dead = false;
 
+// rgb vals for clock
+red = 0;
+green = 150;
+blue = 0;
+
 
 /**
  * 10-second countdown
@@ -15,7 +20,7 @@ function countdown() {
 
     hold = String(timeLeft);
 
-    if (timeLeft == 0) {
+    if (timeLeft == 0 && !complete && !dead) {
         death("You ran outta time, sucker."); // TO BE CHANGED
         return;
     }
@@ -23,6 +28,10 @@ function countdown() {
     timeLeft--;
     document.getElementById("timer").innerHTML = String(timeLeft);
     if (timeLeft >= 0 && !complete && !dead) {
+        red += 15;
+        green -= 15;
+        // blue += 5;
+        document.getElementById("clock").style.backgroundColor = `rgb(${red}, ${green}, ${blue})`
         setTimeout(countdown, 1000);
     } else if (complete) {
         document.getElementById("timer").innerHTML = "--";
@@ -62,23 +71,53 @@ function win(note) {
 /**
  * Function for more easily updating the html components
  * @param {text description of the current situation} situation 
- * @param {function for choice alpha} a_func 
- * @param {text description of choice alpha} a_desc 
- * @param {function for choice beta} b_func 
- * @param {text description of choice beta} b_desc 
+ * @param {function for choice a} a_func 
+ * @param {text description of choice a} a_desc 
+ * @param {function for choice b} b_func 
+ * @param {text description of choice b} b_desc 
+ * @param {function for choice c} c_func 
+ * @param {text description of choice c} c_desc 
  */
-function update(situation, a_func, a_desc, b_func, b_desc) {
+function update3(situation, a_func, a_desc, b_func, b_desc, c_func, c_desc) {
 
     // situation
     document.getElementById("description").innerHTML = situation;
 
     // Choice A
-    document.getElementById("alpha").onclick = a_func;
-    document.getElementById("alpha").innerHTML = a_desc;
+    document.getElementById("a").onclick = a_func;
+    document.getElementById("a").innerHTML = a_desc;
 
     // Choice B
-    document.getElementById("beta").onclick = b_func;
-    document.getElementById("beta").innerHTML = b_desc;
+    document.getElementById("b").onclick = b_func;
+    document.getElementById("b").innerHTML = b_desc;
+
+    // Choice C
+    document.getElementById("c").onclick = c_func;
+    document.getElementById("c").innerHTML = c_desc;
+
+} // end update
+
+
+/**
+ * Function for more easily updating the html components
+ * @param {text description of the current situation} situation 
+ * @param {function for choice a} a_func 
+ * @param {text description of choice a} a_desc 
+ * @param {function for choice b} b_func 
+ * @param {text description of choice b} b_desc 
+ */
+function update2(situation, a_func, a_desc, b_func, b_desc) {
+
+    // situation
+    document.getElementById("description").innerHTML = situation;
+
+    // Choice A
+    document.getElementById("a").onclick = a_func;
+    document.getElementById("a").innerHTML = a_desc;
+
+    // Choice B
+    document.getElementById("b").onclick = b_func;
+    document.getElementById("b").innerHTML = b_desc;
 
 } // end update
 
@@ -90,14 +129,13 @@ function start() {
 
     situation = "You are the pilot of a small cargo craft leaving a desolate planet in the middle of unoccupied space. \
     As you wait your turn to dock with your parent ship called 'Heighliner', another craft suddenly impacts the nose of the Heighliner throwing it into an uncontrolled spin.";
-    a_desc = "Hold back to preserve your safety.";
+    a_desc = "Hold back and observe to see how the situation develops.";
     b_desc = "Approach the ship.";
-
-    a_death = "You watch as the Heighliner continues its uncontrolled spin, breaking apart into thousands of pieces. You and your crew become stranded, eventually dying when you run out of resources.";
+    c_desc = "Run! Get some distance between you and the Heighliner."
 
     countdown();
 
-    update(situation, opt_A, a_desc, opt_B, b_desc);
+    update3(situation, opt_A, a_desc, opt_B, b_desc, opt_C, c_desc);
 
 }
 
@@ -105,7 +143,7 @@ function start() {
 function opt_A() {
 
     death("You watch as the Heighliner continues its uncontrolled spin, breaking apart into thousands of pieces. \
-    You and your crew become stranded, eventually dying when you run out of resources.");
+    Your craft gets hit with a chunk of a Heighliner engine, killing everyone onboard.");
 
 }
 
@@ -115,8 +153,16 @@ function opt_B() {
     situation = "You approach the Heighliner carefully, hovering near the docking port that rotate clockwise infront of you.";
     a_desc = "Start spinning your craft clockwise to match the rotation of the Heighliner's docking port.";
     b_desc = "Continue observing. Maybe the ship's safety system will slow the spin.";
+    c_desc = "Start spinning your craft clockwise to attempt to match the rotation of the Heighliner's docking port.";
 
-    update(situation, opt_BA, a_desc, opt_BB, b_desc);
+    update3(situation, opt_BA, a_desc, opt_BB, b_desc, opt_BC, c_desc);
+
+}
+
+function opt_C() {
+
+    death("Reversing away from the Heighliner, you get to a position where you will be safe from any debris. \
+    You are forced to watch as your only hope of survival tears itself apart into thousands of pieces, stranding and eventually killing your crew.");
 
 }
 
@@ -126,7 +172,7 @@ function opt_BA() {
     a_desc = "Pass control to the guidance computer to guide the ship in.";
     b_desc = "Take the controls and attempt to manually dock.";
 
-    update(situation, opt_BAA, a_desc, opt_BAB, b_desc);
+    update2(situation, opt_BAA, a_desc, opt_BAB, b_desc);
 
 }
 
@@ -134,6 +180,14 @@ function opt_BA() {
 function opt_BB() {
 
     death("As you sit and observe waiting for an automated system to get the Heighliner's roll under control, your craft is hit with debris killing you and your crew.");
+
+}
+
+
+function opt_BC() {
+
+    death("You push left on your stick and begin rolling your craft counter-clockwise. You must have been disoriented because that's the wrong direction! Too much time has passed to correct your error. \
+    The Heighliner breaks apart and debris kills you and your crew instantly.");
 
 }
 
@@ -152,8 +206,9 @@ function opt_BAB() {
     situation = "You don't trust the computer to handle this situation so you take the controls yourself. You carefully guide your craft in and successfully dock with the rolling Heighliner, locking your craft in.";
     a_desc = "Gradually turn on thrusters pointing counter-clockwise in an attempt to resolve the roll.";
     b_desc = "Allow the roll to continue. Maybe trying to slow it down would cause catastrophe.";
+    c_desc = "Gradually turn on thrusters pointing clockwise in an attempt to resolve the roll.";
 
-    update(situation, opt_BABA, a_desc, opt_BABB, b_desc);
+    update3(situation, opt_BABA, a_desc, opt_BABB, b_desc, opt_BABC, c_desc);
 
 }
 
@@ -168,5 +223,11 @@ function opt_BABA() {
 function opt_BABB() {
 
     death("You allow the spin to continue. The ship breaks apart while you are attached to it killing you and your crew.");
+
+}
+
+function opt_BABC() {
+
+    death("You must have been disoriented. You rolled the ship even faster clockwise, causing an explosion killing everyone onboard.");
 
 }
