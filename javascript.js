@@ -18,7 +18,7 @@ green = 150;
 function countdown() {
 
     if (timeLeft == 0 && !complete && !dead) {
-        death("You ran outta time, sucker."); // TO BE CHANGED
+        death("You wasted too much time and got everyone killed.");
         return;
     }
 
