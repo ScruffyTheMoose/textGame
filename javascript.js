@@ -145,7 +145,7 @@ function opt_A() {
 // add option to spin the wrong direction
 function opt_B() {
 
-    situation = "You approach the Heighliner carefully, hovering near the docking port that rotate clockwise infront of you.";
+    situation = "You approach the Heighliner carefully, hovering near the docking port that rotates clockwise infront of you.";
     a_desc = "Start spinning your craft clockwise to match the rotation of the Heighliner's docking port.";
     b_desc = "Continue observing. Maybe the ship's safety system will slow the spin.";
     c_desc = "Start spinning your craft clockwise to attempt to match the rotation of the Heighliner's docking port.";
@@ -210,19 +210,19 @@ function opt_BAB() {
 
 function opt_BABA() {
 
-    win("Success! You manage to bring the spinning to a stop and your crew is able to safely board the ship.");
+    win("Success! You manage to bring the spinning to a stop and your crew is able to safely board the Heighliner.");
 
 }
 
 
 function opt_BABB() {
 
-    death("You allow the spin to continue. The ship breaks apart while you are attached to it killing you and your crew.");
+    death("You allow the Heighliner to continue rolling. It breaks apart while you are attached to it killing you and your crew.");
 
 }
 
 function opt_BABC() {
 
-    death("You must have been disoriented. You rolled the ship even faster clockwise, causing an explosion killing everyone onboard.");
+    death("You must have been disoriented. You rolled the ship even faster clockwise causing an explosion killing everyone onboard.");
 
 }
