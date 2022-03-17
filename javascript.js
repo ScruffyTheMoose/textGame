@@ -166,17 +166,18 @@ function opt_A() {
 
 }
 
-// add option to spin the wrong direction
+
 function opt_B() {
 
     situation = "You approach the Heighliner carefully, hovering near the docking port that rotates clockwise infront of you.";
     a_desc = "Start spinning your craft clockwise to match the rotation of the Heighliner's docking port.";
     b_desc = "Continue observing. Maybe the ship's safety system will slow the spin.";
-    c_desc = "Start spinning your craft clockwise to attempt to match the rotation of the Heighliner's docking port.";
+    c_desc = "Start spinning your craft counter-clockwise to attempt to match the rotation of the Heighliner's docking port.";
 
     update3(situation, opt_BA, a_desc, opt_BB, b_desc, opt_BC, c_desc);
 
 }
+
 
 function opt_C() {
 
@@ -184,6 +185,7 @@ function opt_C() {
     You are forced to watch as your only hope of survival tears itself apart into thousands of pieces, stranding and eventually killing your crew.");
 
 }
+
 
 function opt_BA() {
 
@@ -219,7 +221,7 @@ function opt_BAA() {
 
 }
 
-// add option to roll wrong direction
+
 function opt_BAB() {
 
     situation = "You don't trust the computer to handle this situation so you take the controls yourself. You carefully guide your craft in and successfully dock with the rolling Heighliner, locking your craft in.";
@@ -244,6 +246,7 @@ function opt_BABB() {
     death("You allow the Heighliner to continue rolling. It breaks apart while you are attached to it killing you and your crew.");
 
 }
+
 
 function opt_BABC() {
 
