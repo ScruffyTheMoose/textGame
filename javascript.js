@@ -1,5 +1,5 @@
 // var to track current time in session
-timeLeft = 10;
+timeLeft = 20;
 
 // var to track completion
 complete = false;
@@ -10,6 +10,9 @@ dead = false;
 // rgb vals for clock
 red = 0;
 green = 150;
+
+// for resetting
+reload = window.location.reload;
 
 
 /**
@@ -25,8 +28,8 @@ function countdown() {
     timeLeft--;
     document.getElementById("timer").innerHTML = String(timeLeft);
     if (timeLeft >= 0 && !complete && !dead) {
-        red += 20;
-        green -= 25;
+        red += 10;
+        green -= 15;
         document.getElementById("clock").style.backgroundColor = `rgb(${red}, ${green}, 0)`
         setTimeout(countdown, 1000);
     } else if (complete) {
@@ -45,6 +48,9 @@ function hide_buttons() {
     document.getElementById("cont_a").style.display = "none";
     document.getElementById("cont_b").style.display = "none";
     document.getElementById("cont_c").style.display = "none";
+
+    // restart option
+    document.getElementById("reset").style.display = "block";
 
 }
 
